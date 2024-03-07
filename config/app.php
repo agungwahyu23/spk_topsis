@@ -199,6 +199,8 @@ return [
         Yajra\Datatables\ButtonsServiceProvider::class, 
         Yajra\Datatables\HtmlServiceProvider::class, 
 
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ],
 
     /*

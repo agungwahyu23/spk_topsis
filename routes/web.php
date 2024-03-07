@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::resource('banks', App\Http\Controllers\BankController::class);
     Route::resource('criterias', App\Http\Controllers\CriteriaController::class);
+    Route::resource('subCriterias', App\Http\Controllers\SubCriteriaController::class);
     Route::resource('objeks', App\Http\Controllers\ObjekController::class);
 });
 

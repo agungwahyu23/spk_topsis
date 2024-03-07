@@ -34,6 +34,11 @@
             </ul>
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> 
+                    <a class="nav-link" href="{{ route('subCriterias.index') }}">Sub Kriteria</a>
+                </li>
+            </ul>
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> 
                     <a class="nav-link" href="{{ route('objeks.index') }}">Objek Wisata</a>
                 </li>
             </ul>

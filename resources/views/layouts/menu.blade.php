@@ -12,3 +12,10 @@
         <p>Criterias</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('objeks.index') }}" class="nav-link {{ Request::is('objeks*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Objeks</p>
+    </a>
+</li>

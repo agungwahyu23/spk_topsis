@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('criterias', App\Http\Controllers\CriteriaController::class);
     Route::resource('subCriterias', App\Http\Controllers\SubCriteriaController::class);
     Route::resource('objeks', App\Http\Controllers\ObjekController::class);
+    Route::resource('alternatives', App\Http\Controllers\AlternativeController::class);
 });
 
 

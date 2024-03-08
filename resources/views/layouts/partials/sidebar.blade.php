@@ -44,5 +44,38 @@
             </ul>
         </div>
     </li>
+
+    <li class="nav-item sidebar-actions">
+        <span class="nav-link">
+            <div class="border-bottom">
+                <p class="text-secondary">TOPSIS</p>
+            </div>
+        </span>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('alternatives.index') }}">
+            <span class="menu-title">Alternatif</span>
+            <i class="mdi mdi-view-module menu-icon"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/dashboard') }}">
+            <span class="menu-title">Penilaian</span>
+            <i class="mdi mdi-clipboard-text menu-icon"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/dashboard') }}">
+            <span class="menu-title">Perhitungan</span>
+            <i class="mdi mdi-calculator menu-icon"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/dashboard') }}">
+            <span class="menu-title">Hasil Akhir</span>
+            <i class="mdi mdi-briefcase-check menu-icon"></i>
+        </a>
+    </li>
     
 </ul>

@@ -26,3 +26,10 @@
         <p>Sub Criterias</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('alternatives.index') }}" class="nav-link {{ Request::is('alternatives*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Alternatives</p>
+    </a>
+</li>

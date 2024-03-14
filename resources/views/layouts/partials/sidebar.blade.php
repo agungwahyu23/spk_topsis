@@ -60,7 +60,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ url('/dashboard') }}">
+        <a class="nav-link" href="{{ route('analyses.index') }}">
             <span class="menu-title">Penilaian</span>
             <i class="mdi mdi-clipboard-text menu-icon"></i>
         </a>

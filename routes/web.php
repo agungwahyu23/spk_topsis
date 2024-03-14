@@ -18,13 +18,14 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     
     Route::resource('banks', App\Http\Controllers\BankController::class);
     Route::resource('criterias', App\Http\Controllers\CriteriaController::class);
     Route::resource('subCriterias', App\Http\Controllers\SubCriteriaController::class);
     Route::resource('objeks', App\Http\Controllers\ObjekController::class);
     Route::resource('alternatives', App\Http\Controllers\AlternativeController::class);
+    Route::resource('analyses', App\Http\Controllers\AnalysisController::class);
 });
 
 

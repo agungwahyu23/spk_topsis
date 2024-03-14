@@ -26,5 +26,8 @@ class Criteria extends Model
         'status' => 'nullable'
     ];
 
-    
+    public static $status = [
+        '0' => 'Benefit',
+        '1' => 'Cost'
+    ];
 }

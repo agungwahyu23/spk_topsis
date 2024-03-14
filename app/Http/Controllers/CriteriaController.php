@@ -6,6 +6,7 @@ use App\DataTables\CriteriaDataTable;
 use App\Http\Requests\CreateCriteriaRequest;
 use App\Http\Requests\UpdateCriteriaRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Criteria;
 use App\Repositories\CriteriaRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,9 @@ class CriteriaController extends AppBaseController
      */
     public function create()
     {
-        return view('criterias.create');
+        $status = Criteria::$status;
+
+        return view('criterias.create', compact('status'));
     }
 
     /**
@@ -80,7 +83,9 @@ class CriteriaController extends AppBaseController
             return redirect(route('criterias.index'));
         }
 
-        return view('criterias.edit')->with('criteria', $criteria);
+        $status = Criteria::$status;
+
+        return view('criterias.edit', compact('status'))->with('criteria', $criteria);
     }
 
     /**

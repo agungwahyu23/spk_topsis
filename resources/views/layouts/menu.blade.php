@@ -33,3 +33,10 @@
         <p>Alternatives</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('analyses.index') }}" class="nav-link {{ Request::is('analyses*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Analyses</p>
+    </a>
+</li>

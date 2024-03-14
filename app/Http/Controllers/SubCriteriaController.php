@@ -7,6 +7,7 @@ use App\Http\Requests\CreateSubCriteriaRequest;
 use App\Http\Requests\UpdateSubCriteriaRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Criteria;
+use App\Models\SubCriteria;
 use App\Repositories\SubCriteriaRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -75,17 +76,17 @@ class SubCriteriaController extends AppBaseController
      */
     public function edit($id)
     {
-        $subCriteria = $this->subCriteriaRepository->find($id);
+        $criteria = Criteria::find($id);
 
-        if (empty($subCriteria)) {
-            Flash::error('Sub Criteria not found');
+        if (empty($criteria)) {
+            Flash::error('Data not found');
 
             return redirect(route('subCriterias.index'));
         }
 
-        $criteria = Criteria::all()->pluck('criteria_name', 'id')->toArray();
+        $sub_criteria = SubCriteria::where('criteria_id', $id)->get();
 
-        return view('sub_criterias.edit', compact('criteria'))->with('subCriteria', $subCriteria);
+        return view('sub_criterias.edit', compact('sub_criteria'))->with('criteria', $criteria);
     }
 
     /**
@@ -93,15 +94,19 @@ class SubCriteriaController extends AppBaseController
      */
     public function update($id, UpdateSubCriteriaRequest $request)
     {
-        $subCriteria = $this->subCriteriaRepository->find($id);
-
-        if (empty($subCriteria)) {
-            Flash::error('Sub Criteria not found');
-
-            return redirect(route('subCriterias.index'));
+        $input = $request->all();
+        
+        if (count($input['id']) > 0) {
+            // loop data berdasarkan id
+            foreach ($input['id'] as $key => $item) {
+                // update data
+                $data = SubCriteria::where('id', $item)
+                ->update([
+                    'description' => $input['description'][$key],
+                    'value' => $input['value'][$key],
+                ]);
+            }
         }
-
-        $subCriteria = $this->subCriteriaRepository->update($request->all(), $id);
 
         Flash::success('Sub Criteria updated successfully.');
 

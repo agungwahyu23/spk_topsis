@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Criteria;
+use App\Models\Analysis;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class CriteriaDataTable extends DataTable
+class AnalysisDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,21 +18,16 @@ class CriteriaDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable
-        ->editColumn('status', function ($q) {
-            $status = Criteria::$status;
-            return $q->status == 1 ? $status[1] : $status[0];
-        })
-        ->addColumn('action', 'criterias.datatables_actions');
+        return $dataTable->addColumn('action', 'analyses.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Criteria $model
+     * @param \App\Models\Analysis $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Criteria $model)
+    public function query(Analysis $model)
     {
         return $model->newQuery();
     }
@@ -71,9 +66,14 @@ class CriteriaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'code',
-            'criteria_name',
-            'status'
+            'alternative_id',
+            'criteria_id',
+            'sub_criteria_id',
+            'sub_criteria_id',
+            'sub_criteria_id',
+            'sub_criteria_id',
+            'sub_criteria_id',
+            'sub_criteria_id'
         ];
     }
 
@@ -84,6 +84,6 @@ class CriteriaDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'criterias_datatable_' . time();
+        return 'analyses_datatable_' . time();
     }
 }

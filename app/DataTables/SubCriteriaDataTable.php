@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Criteria;
 use App\Models\SubCriteria;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
@@ -19,10 +20,35 @@ class SubCriteriaDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable
-        ->editColumn('criteria_id', function ($q) {
-            return $q->criteria_name;
+        ->editColumn('id', function ($q) {
+            $criteria = Criteria::find($q->id);
+
+            return $criteria->criteria_name;
         })
-        ->addColumn('action', 'sub_criterias.datatables_actions');
+        ->editColumn('criteria_name', function ($q) {
+            
+            $list_group_html = '-';
+
+            $criteria = Criteria::find($q->id);
+            $sub_criteria = SubCriteria::where('criteria_id', $criteria->id)->get();
+
+            if (count($sub_criteria) > 0) {
+                $html = '';
+                foreach ($sub_criteria as $sub) {
+                    $html = $html . '<li>' . $sub->value .' = '. $sub->description . '</li>';
+                }
+
+                $list_group_html = '
+                    <ul>
+                        ' . $html . '
+                    </ul>
+                ';
+            }
+            
+            return $list_group_html;
+        })
+        ->addColumn('action', 'sub_criterias.datatables_actions')
+        ->rawColumns(['action', 'id', 'criteria_name']);
     }
 
     /**
@@ -33,15 +59,17 @@ class SubCriteriaDataTable extends DataTable
      */
     public function query(SubCriteria $model)
     {
-        $query = SubCriteria::query();
-        $query->leftJoin('criteria', 'criteria.id', 'sub_criteria.criteria_id');
-        $query = $query->select(
-            'sub_criteria.id',
-            'criteria_id',
-            'description',
-            'value',
-            'criteria.criteria_name'
-        );
+        // $query = SubCriteria::query();
+        // $query->leftJoin('criteria', 'criteria.id', 'sub_criteria.criteria_id');
+        // $query = $query->select(
+        //     'sub_criteria.id',
+        //     'criteria_id',
+        //     'description',
+        //     'value',
+        //     'criteria.criteria_name'
+        // );
+
+        $query = Criteria::query();
 
         return $query;
     }
@@ -80,9 +108,9 @@ class SubCriteriaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'criteria_id' => ['title'=> 'Kriteria'],
-            'description' => ['title'=> 'Keterangan'],
-            'value' => ['title'=> 'Bobot']
+            'id' => ['title'=> 'Kriteria'],
+            'criteria_name' => ['title'=> 'Bobot & Keterangan'],
+            // 'value' => ['title'=> 'Bobot']
         ];
     }
 

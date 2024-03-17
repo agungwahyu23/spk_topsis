@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SubCriteria extends Model
 {
     public $table = 'sub_criteria';
+    protected $primaryKey = "id";
+    public $incrementing = "true";
 
     public $fillable = [
         'criteria_id',
@@ -26,5 +28,8 @@ class SubCriteria extends Model
         'value' => 'nullable'
     ];
 
-    
+    public function kriteria()
+    {
+        return $this->belongsTo(Criteria::class, 'criteria_id', 'id');
+    }
 }

@@ -6,6 +6,10 @@ use App\DataTables\AnalysisDataTable;
 use App\Http\Requests\CreateAnalysisRequest;
 use App\Http\Requests\UpdateAnalysisRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Alternative;
+use App\Models\Analysis;
+use App\Models\Criteria;
+use App\Models\SubCriteria;
 use App\Repositories\AnalysisRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -25,7 +29,13 @@ class AnalysisController extends AppBaseController
      */
     public function index(AnalysisDataTable $analysisDataTable)
     {
-    return $analysisDataTable->render('analyses.index');
+        \DB::statement("SET SQL_MODE=''");
+
+        $data = Analysis::with('alternatif', 'kriteria', 'subKriteria')->orderBy('id', 'asc')->get();
+
+        $criteria = Criteria::get();
+
+        return view('analyses.index', compact('criteria', 'data'));
     }
 
 
@@ -72,7 +82,7 @@ class AnalysisController extends AppBaseController
      */
     public function edit($id)
     {
-        $analysis = $this->analysisRepository->find($id);
+        $analysis = Analysis::where('alternative_id', $id)->first();
 
         if (empty($analysis)) {
             Flash::error('Analysis not found');
@@ -80,7 +90,10 @@ class AnalysisController extends AppBaseController
             return redirect(route('analyses.index'));
         }
 
-        return view('analyses.edit')->with('analysis', $analysis);
+        $data2 = Analysis::where('alternative_id', $id)->get();
+        $subKriteria = SubCriteria::all();
+
+        return view('analyses.edit', compact('data2', 'subKriteria'))->with('analysis', $analysis);
     }
 
     /**
@@ -88,15 +101,17 @@ class AnalysisController extends AppBaseController
      */
     public function update($id, UpdateAnalysisRequest $request)
     {
-        $analysis = $this->analysisRepository->find($id);
+        $input = $request->all();
 
-        if (empty($analysis)) {
-            Flash::error('Analysis not found');
-
-            return redirect(route('analyses.index'));
+        // update penilaian/analysis
+        $criteria = Criteria::get();
+        
+        foreach ($criteria as $key => $value) {
+            $update = Analysis::updateOrCreate(
+                ['alternative_id' => $request->alternative_id, 'criteria_id' => $value->id],
+                ['sub_criteria_id' => $request->criteria_id[$key]]);
         }
-
-        $analysis = $this->analysisRepository->update($request->all(), $id);
+        // end update penilaian/analysis
 
         Flash::success('Analysis updated successfully.');
 

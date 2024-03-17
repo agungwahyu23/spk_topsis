@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Alternative;
 use App\Models\Analysis;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
@@ -66,14 +67,13 @@ class AnalysisDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'alternative_id',
-            'criteria_id',
-            'sub_criteria_id',
-            'sub_criteria_id',
-            'sub_criteria_id',
-            'sub_criteria_id',
-            'sub_criteria_id',
-            'sub_criteria_id'
+            'id' => ['title' => 'ID'],
+            'alternative_id' => ['title' => 'Alternatif ID'],
+            'objek_name' => ['title' => 'Nama Objek'],
+            'criteria1' => ['title' => 'Jarak'],
+            'criteria2' => ['title' => 'Harga'],
+            'criteria3' => ['title' => 'Akses'],
+            'criteria4' => ['title' => 'Fasilitas'],
         ];
     }
 

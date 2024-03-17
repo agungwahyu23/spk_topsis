@@ -1,17 +1,10 @@
 @extends('layouts.app')
 
+@section('title')
+Edit Penilaian
+@endsection
+
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-12">
-                    <h1>
-                        Edit Analysis
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <div class="content px-3">
 
@@ -19,8 +12,13 @@
 
         <div class="card">
 
-            {!! Form::model($analysis, ['route' => ['analyses.update', $analysis->id], 'method' => 'patch']) !!}
+            <div class="card-header">
+                Objek: {{ $analysis->alternatif->objek->name }}
+            </div>
 
+            {!! Form::model($analysis, ['route' => ['analyses.update', $analysis->alternative_id], 'method' => 'patch']) !!}
+
+            <input type="text" name="alternative_id" value="{{ $analysis->alternative_id }}" />
             <div class="card-body">
                 <div class="row">
                     @include('analyses.fields')

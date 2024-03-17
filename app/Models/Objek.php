@@ -23,5 +23,8 @@ class Objek extends Model
         'name' => 'nullable'
     ];
 
-    
+    public function alternatif()
+    {
+        return $this->hasMany(Alternative::class);
+    }
 }

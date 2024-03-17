@@ -7,6 +7,7 @@ use App\Http\Requests\CreateAlternativeRequest;
 use App\Http\Requests\UpdateAlternativeRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Alternative;
+use App\Models\Analysis;
 use App\Models\Objek;
 use App\Repositories\AlternativeRepository;
 use Illuminate\Http\Request;
@@ -49,6 +50,11 @@ class AlternativeController extends AppBaseController
         $input = $request->all();
 
         $alternative = $this->alternativeRepository->create($input);
+
+        // insert into penilaian
+        $penilaian = Analysis::updateOrCreate(
+            ['alternative_id' => $alternative->id],
+            ['alternative_id' => $alternative->id]);
 
         Flash::success('Alternative saved successfully.');
 
@@ -113,6 +119,11 @@ class AlternativeController extends AppBaseController
         }
 
         $alternative = $this->alternativeRepository->update($request->all(), $id);
+
+        // insert into penilaian
+        $penilaian = Analysis::updateOrCreate(
+            ['alternative_id' => $alternative->id],
+            ['alternative_id' => $alternative->id]);
 
         Flash::success('Alternative updated successfully.');
 

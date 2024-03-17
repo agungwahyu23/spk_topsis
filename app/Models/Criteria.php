@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Alternative;
 use Illuminate\Database\Eloquent\Model;
 
 class Criteria extends Model
 {
     public $table = 'criteria';
+    protected $primaryKey = "id";
+    public $incrementing = "true";
 
     public $fillable = [
         'code',
@@ -30,4 +33,14 @@ class Criteria extends Model
         '0' => 'Benefit',
         '1' => 'Cost'
     ];
+
+    public function subKriteria()
+    {
+        return $this->hasMany(SubCriteria::class);
+    }
+
+    public function analysis()
+    {
+        return $this->hasMany(Analysis::class);    
+    }
 }

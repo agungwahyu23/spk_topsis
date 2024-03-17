@@ -40,3 +40,10 @@
         <p>Analyses</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('calculations.index') }}" class="nav-link {{ Request::is('calculations*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Calculations</p>
+    </a>
+</li>

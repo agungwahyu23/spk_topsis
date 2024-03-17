@@ -26,6 +26,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('objeks', App\Http\Controllers\ObjekController::class);
     Route::resource('alternatives', App\Http\Controllers\AlternativeController::class);
     Route::resource('analyses', App\Http\Controllers\AnalysisController::class);
+    Route::resource('calculations', App\Http\Controllers\CalculationController::class);
+
+    Route::post('/calculate_topsis', [App\Http\Controllers\CalculationController::class, 'calcTopsis'])->name('calculate_topsis');
 });
 
 

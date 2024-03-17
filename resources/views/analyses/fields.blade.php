@@ -13,12 +13,12 @@
                 @endphp
 
                 @if ($value->id == $sub_criteria_id)
-                    <option value="{{ $value->id }}" selected>{{ $value->description }}</option>
+                    <option value="{{ $value->id }}" selected>{{ $value->value ." - ". $value->description }}</option>
                 @else
-                    <option value="{{ $value->id }}">{{ $value->description }}</option>
+                    <option value="{{ $value->id }}">{{ $value->value ." - ". $value->description }}</option>
                 @endif
             @else
-                <option value="{{ $value->id }}">{{ $value->description }}</option>
+                <option value="{{ $value->id }}">{{ $value->value ." - ". $value->description }}</option>
             @endif
 
         @endforeach

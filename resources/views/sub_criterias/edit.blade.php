@@ -14,6 +14,8 @@ Edit Sub Kriteria
 
             {!! Form::model($criteria, ['route' => ['subCriterias.update', $criteria->id], 'method' => 'patch']) !!}
 
+            <input type="text" name="criteria_id" value="{{ $criteria->id }}" hidden>
+
             <div class="card-header">
                 Kriteria {{ $criteria->criteria_name }}
             </div>

@@ -50,6 +50,12 @@ class SubCriteriaController extends AppBaseController
 
         $subCriteria = $this->subCriteriaRepository->create($input);
 
+        $countSub = SubCriteria::where('criteria_id', $request->criteria_id)->count();
+        $updateCriteria = Criteria::where('id', $request->criteria_id)
+            ->update([
+                'value' => $countSub
+            ]);
+
         Flash::success('Sub Criteria saved successfully.');
 
         return redirect(route('subCriterias.index'));
@@ -107,6 +113,12 @@ class SubCriteriaController extends AppBaseController
                 ]);
             }
         }
+
+        $countSub = SubCriteria::where('criteria_id', $request->criteria_id)->count();
+        $updateCriteria = Criteria::where('id', $request->criteria_id)
+            ->update([
+                'value' => $countSub
+            ]);
 
         Flash::success('Sub Criteria updated successfully.');
 

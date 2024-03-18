@@ -12,6 +12,7 @@ use App\Repositories\CalculationRepository;
 use App\Http\Requests\CreateCalculationRequest;
 use App\Http\Requests\UpdateCalculationRequest;
 use App\Models\Divider;
+use App\Models\MatrixNormalization;
 
 class CalculationController extends AppBaseController
 {
@@ -34,8 +35,19 @@ class CalculationController extends AppBaseController
             ->orderBy('divider.id', 'asc')
             ->get();
 
+        $matriksNormalisasi = CalculationRepository::getMatrixNormalization();
+
+        $bobotTernormalisasi = CalculationRepository::getWeightNormalization();
+
+        $idealPositif = CalculationRepository::getIdealPositif();
+        $idealNegative = CalculationRepository::getIdealNegative();
+
         return view('calculations.index', compact(
-            'hasilPembagi'
+            'hasilPembagi',
+            'matriksNormalisasi',
+            'bobotTernormalisasi',
+            'idealPositif',
+            'idealNegative'
         ));
 
         // return $calculationDataTable->render('calculations.index');
@@ -45,6 +57,15 @@ class CalculationController extends AppBaseController
     {
         // hitung hasil pembagi/matrik keputusan
         CalculationRepository::calcDivider();
+
+        // hitung matriks ternormalisasi
+        CalculationRepository::caclMatrixNormalization();
+
+        // hitung normalisasi terbobot
+        CalculationRepository::calcWeightNormalization();
+
+        // hitung ideal positif
+        CalculationRepository::calcIdeal();
 
         Flash::success('Perhitungan berhasil.');
 

@@ -14,7 +14,8 @@ class Criteria extends Model
     public $fillable = [
         'code',
         'criteria_name',
-        'status'
+        'status',
+        'value'
     ];
 
     protected $casts = [

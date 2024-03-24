@@ -34,7 +34,7 @@
                     <thead>
                         <tr>
                             @foreach ($hasilPembagi as $item)
-                                <th>{{ $item->criteria_name }}</th>
+                                <th>{{ $item->criteria_name }} ({{ $item->code }})</th>
                             @endforeach
                         </tr>
                     </thead>
@@ -61,8 +61,8 @@
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            @foreach ($matriksNormalisasi->unique('criteria_id') as $item)
-                                <th>{{ $item->criteria_name }}</th>
+                            @foreach ($matriksNormalisasi->sortBy('criteria_id')->unique('criteria_id') as $item)
+                                <th>{{ $item->criteria_name }} ({{ $item->code }})</th>
                             @endforeach
                         </tr>
                     </thead>
@@ -70,8 +70,8 @@
                         <tr>
                             @foreach ($matriksNormalisasi->unique('alternative_id') as $item)
                                 <tr>
-                                    <td>{{ $item->name }}</td>
-                                    @foreach ($matriksNormalisasi->where('alternative_id', $item->alternative_id) as $value)
+                                    <td>{{ $item->name }} ({{ $item->c }})</td>
+                                    @foreach ($matriksNormalisasi->where('alternative_id', $item->alternative_id)->sortBy('criteria_id') as $value)
                                         <td>
                                             {{ round($value->value, 3) }}
                                         </td>
@@ -96,8 +96,8 @@
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            @foreach ($bobotTernormalisasi->unique('criteria_id') as $item)
-                                <th>{{ $item->criteria_name }}</th>
+                            @foreach ($bobotTernormalisasi->sortBy('criteria_id')->unique('criteria_id') as $item)
+                                <th>{{ $item->criteria_name }}-{{ $item->code }}</th>
                             @endforeach
                         </tr>
                     </thead>
@@ -105,8 +105,8 @@
                         <tr>
                             @foreach ($bobotTernormalisasi->unique('alternative_id') as $item)
                                 <tr>
-                                    <td>{{ $item->name }}</td>
-                                    @foreach ($bobotTernormalisasi->where('alternative_id', $item->alternative_id) as $value)
+                                    <td>{{ $item->name }}-{{ $item->c }}</td>
+                                    @foreach ($bobotTernormalisasi->where('alternative_id', $item->alternative_id)->sortBy('criteria_id') as $value)
                                         <td>
                                             {{ round($value->value, 3) }}
                                         </td>
@@ -132,7 +132,7 @@
                         <tr>
                             <th>Nama</th>
                             @foreach ($idealPositif->unique('criteria_id') as $item)
-                                <th>{{ $item->criteria_name }}</th>
+                                <th>{{ $item->criteria_name }} ({{ $item->code }})</th>
                             @endforeach
                         </tr>
                     </thead>
@@ -140,10 +140,10 @@
                         <tr>
                             @foreach ($idealPositif->unique('alternative_id') as $item)
                                 <tr>
-                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->name }}-{{ $item->c }}</td>
                                     @foreach ($idealPositif->where('alternative_id', $item->alternative_id) as $value)
-                                        <td>
-                                            {{ number_format($value->value, 6) }}
+                                        <td> 
+                                            {{ round($value->value, 3) }}
                                         </td>
                                     @endforeach
                                 </tr>
@@ -167,7 +167,7 @@
                         <tr>
                             <th>Nama</th>
                             @foreach ($idealNegative->unique('criteria_id') as $item)
-                                <th>{{ $item->criteria_name }}</th>
+                                <th>{{ $item->criteria_name }} ({{ $item->code }})</th>
                             @endforeach
                         </tr>
                     </thead>
@@ -175,12 +175,99 @@
                         <tr>
                             @foreach ($idealNegative->unique('alternative_id') as $item)
                                 <tr>
-                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->name }} ({{ $item->c }})</td>
                                     @foreach ($idealNegative->where('alternative_id', $item->alternative_id) as $value)
                                         <td>
-                                            {{ number_format($value->value, 6) }}
+                                            {{ round($value->value, 3) }}
                                         </td>
                                     @endforeach
+                                </tr>
+                            @endforeach
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{-- Tabel Ideal Positif --}}
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Solusi Ideal Positif (A<sup>+</sup>)</h5>
+        </div>
+        <div class="card-body px-4">
+            <div class="table-responsive">
+                <table id="tabel_data" class="table table-striped table-bordered" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach ($solusiIdealPositif as $item)
+                                <tr>
+                                    <td>{{ $item->name }} ({{ $item->code }})</td>
+                                    <td>{{ round($item->value, 3) }}</td>
+                                </tr>
+                            @endforeach
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{-- Tabel Ideal Negatif --}}
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Solusi Ideal Negative (A<sup>-</sup>)</h5>
+        </div>
+        <div class="card-body px-4">
+            <div class="table-responsive">
+                <table id="tabel_data" class="table table-striped table-bordered" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach ($solusiIdealNegative as $item)
+                                <tr>
+                                    <td>{{ $item->name }} ({{ $item->code }})</td>
+                                    <td>{{ round($item->value, 3) }}</td>
+                                </tr>
+                            @endforeach
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{-- Hasil Akhir --}}
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Hasil Akhir</h5>
+        </div>
+        <div class="card-body px-4">
+            <div class="table-responsive">
+                <table id="tabel_data" class="table table-striped table-bordered" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach ($hasilTopsis as $item)
+                                <tr>
+                                    <td>{{ $item->name }} ({{ $item->code }})</td>
+                                    <td>{{ round($item->nilai, 3) }}</td>
                                 </tr>
                             @endforeach
                         </tr>

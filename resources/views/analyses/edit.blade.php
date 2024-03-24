@@ -18,7 +18,7 @@ Edit Penilaian
 
             {!! Form::model($analysis, ['route' => ['analyses.update', $analysis->alternative_id], 'method' => 'patch']) !!}
 
-            <input type="text" name="alternative_id" value="{{ $analysis->alternative_id }}" />
+            <input type="hidden" name="alternative_id" value="{{ $analysis->alternative_id }}" />
             <div class="card-body">
                 <div class="row">
                     @include('analyses.fields')

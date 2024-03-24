@@ -91,7 +91,7 @@ class AnalysisController extends AppBaseController
         }
 
         $data2 = Analysis::where('alternative_id', $id)->get();
-        $subKriteria = SubCriteria::all();
+        $subKriteria = SubCriteria::orderBy('criteria_id')->get();
 
         return view('analyses.edit', compact('data2', 'subKriteria'))->with('analysis', $analysis);
     }

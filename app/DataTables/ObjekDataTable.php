@@ -29,7 +29,9 @@ class ObjekDataTable extends DataTable
      */
     public function query(Objek $model)
     {
-        return $model->newQuery();
+        $data = $model->newQuery();
+        $data = $data->orderBy('id'); 
+        return $data;
     }
 
     /**

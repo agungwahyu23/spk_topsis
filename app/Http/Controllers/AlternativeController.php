@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Flash;
+use App\Models\Objek;
+use App\Models\Analysis;
+use App\Models\Criteria;
+use App\Models\Alternative;
+use Illuminate\Http\Request;
 use App\DataTables\AlternativeDataTable;
+use App\Http\Controllers\AppBaseController;
+use App\Repositories\AlternativeRepository;
 use App\Http\Requests\CreateAlternativeRequest;
 use App\Http\Requests\UpdateAlternativeRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\Alternative;
-use App\Models\Analysis;
-use App\Models\Objek;
-use App\Repositories\AlternativeRepository;
-use Illuminate\Http\Request;
-use Flash;
+use App\Models\SubCriteria;
 
 class AlternativeController extends AppBaseController
 {
@@ -52,9 +54,13 @@ class AlternativeController extends AppBaseController
         $alternative = $this->alternativeRepository->create($input);
 
         // insert into penilaian
-        $penilaian = Analysis::updateOrCreate(
-            ['alternative_id' => $alternative->id],
-            ['alternative_id' => $alternative->id]);
+        $criteria = Criteria::get();
+        foreach ($criteria as $key => $value) {
+            $sub = SubCriteria::where('criteria_id', $value->id)->first();
+            $update = Analysis::updateOrCreate(
+                ['alternative_id' => $alternative->id, 'criteria_id' => $value->id],
+                ['sub_criteria_id' => $sub->id]);
+        }
 
         Flash::success('Alternative saved successfully.');
 
@@ -121,9 +127,13 @@ class AlternativeController extends AppBaseController
         $alternative = $this->alternativeRepository->update($request->all(), $id);
 
         // insert into penilaian
-        $penilaian = Analysis::updateOrCreate(
-            ['alternative_id' => $alternative->id],
-            ['alternative_id' => $alternative->id]);
+        $criteria = Criteria::get();
+        foreach ($criteria as $key => $value) {
+            $sub = SubCriteria::where('criteria_id', $value->id)->first();
+            $update = Analysis::updateOrCreate(
+                ['alternative_id' => $alternative->id, 'criteria_id' => $value->id],
+                ['sub_criteria_id' => $sub->id]);
+        }
 
         Flash::success('Alternative updated successfully.');
 

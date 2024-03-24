@@ -31,8 +31,8 @@ class CalculationController extends AppBaseController
     {
         $hasilPembagi = DB::table('divider')
             ->join('criteria', 'criteria.id', 'divider.criteria_id')
-            ->select('divider.*', 'criteria.criteria_name')
-            ->orderBy('divider.id', 'asc')
+            ->select('divider.*', 'criteria.criteria_name', 'criteria.code')
+            ->orderBy('criteria.id', 'asc')
             ->get();
 
         $matriksNormalisasi = CalculationRepository::getMatrixNormalization();
@@ -42,15 +42,21 @@ class CalculationController extends AppBaseController
         $idealPositif = CalculationRepository::getIdealPositif();
         $idealNegative = CalculationRepository::getIdealNegative();
 
+        $solusiIdealPositif = CalculationRepository::getSolusiIdealPositif();
+        $solusiIdealNegative = CalculationRepository::getSolusiIdealNegative();
+
+        $hasilTopsis = CalculationRepository::getHasil();
+
         return view('calculations.index', compact(
             'hasilPembagi',
             'matriksNormalisasi',
             'bobotTernormalisasi',
             'idealPositif',
-            'idealNegative'
+            'idealNegative',
+            'solusiIdealPositif',
+            'solusiIdealNegative',
+            'hasilTopsis'
         ));
-
-        // return $calculationDataTable->render('calculations.index');
     }
 
     public function calcTopsis() 
@@ -65,7 +71,15 @@ class CalculationController extends AppBaseController
         CalculationRepository::calcWeightNormalization();
 
         // hitung ideal positif
-        CalculationRepository::calcIdeal();
+        // CalculationRepository::calcIdeal();
+
+        // hitung solysi ideal
+        CalculationRepository::calcIdealPositif();
+        CalculationRepository::calcIdealNegatif();
+        CalculationRepository::calcIdealSolution();
+
+        // hitung hasil
+        CalculationRepository::calcHasil();
 
         Flash::success('Perhitungan berhasil.');
 

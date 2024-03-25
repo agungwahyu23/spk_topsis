@@ -17,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index']);
+Route::get('/wisata', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('wisata.index');
+
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     
     Route::resource('banks', App\Http\Controllers\BankController::class);
     Route::resource('criterias', App\Http\Controllers\CriteriaController::class);

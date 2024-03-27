@@ -7,6 +7,8 @@ use App\Models\SubCriteria;
 use App\Models\ResultTopsis;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Objek;
+use App\Models\ObjekGallery;
 
 class HomeController extends Controller
 {
@@ -39,7 +41,9 @@ class HomeController extends Controller
         $filteredResults = $filteredResults
         ->select(
             'result_topsis.*',
-            'objeks.name'
+            'objeks.id as objek_id',
+            'objeks.name',
+            'objeks.thumbnail'
         )
         ->leftJoin('alternative', 'alternative.id', 'result_topsis.alternative_id')
         ->leftJoin('objeks', 'objeks.id', 'alternative.objek_id')
@@ -66,9 +70,11 @@ class HomeController extends Controller
         ->groupBy('result_topsis.alternative_id')
         ->get()
         ->take(6);
-        // dd($filteredResults->toArray());
 
-        return view('frontend.home', compact('criteria'), ['recomendation' => $filteredResults]);
+        $objek = Objek::get();
+        // dd($objek);
+
+        return view('frontend.home', compact('criteria', 'objek'), ['recomendation' => $filteredResults]);
     }
 
     /**
@@ -100,7 +106,10 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $objek = Objek::find($id);
+        $gallery = ObjekGallery::where('objek_id', $id)->get();
+
+        return view('frontend.detail', compact('objek', 'gallery'));
     }
 
     /**

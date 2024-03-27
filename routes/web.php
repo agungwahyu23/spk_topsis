@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index']);
 Route::get('/wisata', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('wisata.index');
+Route::get('/detail/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'show']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -27,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('criterias', App\Http\Controllers\CriteriaController::class);
     Route::resource('subCriterias', App\Http\Controllers\SubCriteriaController::class);
     Route::resource('objeks', App\Http\Controllers\ObjekController::class);
+    Route::resource('objekGallery', App\Http\Controllers\ObjekGalleryController::class);
     Route::resource('alternatives', App\Http\Controllers\AlternativeController::class);
     Route::resource('analyses', App\Http\Controllers\AnalysisController::class);
     Route::resource('calculations', App\Http\Controllers\CalculationController::class);

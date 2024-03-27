@@ -10,7 +10,9 @@ class Objek extends Model
 
     public $fillable = [
         'code',
-        'name'
+        'name',
+        'thumbnail',
+        'description'
     ];
 
     protected $casts = [
@@ -26,5 +28,10 @@ class Objek extends Model
     public function alternatif()
     {
         return $this->hasMany(Alternative::class);
+    }
+
+    public function gallery()
+    {
+        return $this->hasMany(ObjekGallery::class);
     }
 }

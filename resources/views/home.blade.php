@@ -6,9 +6,7 @@
         <div class="card-body">
             <img src="{{ asset('images/dashboard/circle.svg') }}" class="card-img-absolute"
                 alt="circle-image" />
-            <h3 class="font-weight-normal mb-3">Total Pesanan <i
-                    class="mdi mdi-chart-line mdi-24px float-right"></i>
-            </h3>
+            <h3 class="font-weight-normal mb-3">Total Objek Wisata </h3>
             <h2 class="mb-5">10</h2>
         </div>
     </div>
@@ -18,9 +16,7 @@
         <div class="card-body">
             <img src="{{ asset('images/dashboard/circle.svg') }}" class="card-img-absolute"
                 alt="circle-image" />
-            <h3 class="font-weight-normal mb-3">Pesanan Diproses <i
-                    class="mdi mdi-truck-fast mdi-24px float-right"></i>
-            </h3>
+            <h3 class="font-weight-normal mb-3">Alternatif Wisata </h3>
             <h2 class="mb-5">10</h2>
         </div>
     </div>
@@ -30,9 +26,7 @@
         <div class="card-body">
             <img src="{{ asset('images/dashboard/circle.svg') }}" class="card-img-absolute"
                 alt="circle-image" />
-            <h3 class="font-weight-normal mb-3">Pesanan Selesai <i
-                    class="mdi mdi-briefcase-check mdi-24px float-right"></i>
-            </h3>
+            <h3 class="font-weight-normal mb-3">Jumlah Kriteria</h3>
             <h2 class="mb-5">10</h2>
         </div>
     </div>

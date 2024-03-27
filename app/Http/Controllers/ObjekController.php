@@ -44,6 +44,14 @@ class ObjekController extends AppBaseController
     {
         $input = $request->all();
 
+        if ($request->hasFile('thumbnail')) {
+            $extension = $request->file('thumbnail')->getClientOriginalExtension();
+            $filenameSimpan = 'thumbnail' . '_' . time() . '.' . $extension;
+
+            $request->file('thumbnail')->move(public_path().'/media/', $filenameSimpan);
+            $input['thumbnail'] = $filenameSimpan;
+        }
+
         $objek = $this->objekRepository->create($input);
 
         Flash::success('Objek saved successfully.');
@@ -88,6 +96,8 @@ class ObjekController extends AppBaseController
      */
     public function update($id, UpdateObjekRequest $request)
     {
+        $input = $request->all();
+        
         $objek = $this->objekRepository->find($id);
 
         if (empty($objek)) {
@@ -96,7 +106,15 @@ class ObjekController extends AppBaseController
             return redirect(route('objeks.index'));
         }
 
-        $objek = $this->objekRepository->update($request->all(), $id);
+        if ($request->hasFile('thumbnail')) {
+            $extension = $request->file('thumbnail')->getClientOriginalExtension();
+            $filenameSimpan = 'thumbnail' . '_' . time() . '.' . $extension;
+
+            $request->file('thumbnail')->move(public_path().'/media/', $filenameSimpan);
+            $input['thumbnail'] = $filenameSimpan;
+        }
+
+        $objek = $this->objekRepository->update($input, $id);
 
         Flash::success('Objek updated successfully.');
 

@@ -9,11 +9,10 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav ml-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">Wisata</a>
-                    <a href="service.html" class="nav-item nav-link">Rekomendasi</a>
-                    <a href="package.html" class="nav-item nav-link">Tentang Kami</a>
-                    <a href="contact.html" class="nav-item nav-link">Kontak</a>
+                    <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
+                    <a href="#objek" class="nav-item nav-link">Wisata</a>
+                    <a href="#recomendation" class="nav-item nav-link">Rekomendasi</a>
+                    <a href="#about" class="nav-item nav-link">Tentang Kami</a>
                 </div>
             </div>
         </nav>

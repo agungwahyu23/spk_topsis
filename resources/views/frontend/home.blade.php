@@ -55,7 +55,7 @@
                                         <select class="custom-select px-4" style="height: 47px;" name="{{ strtolower($item['criteria_name']) }}">
                                             <option value="" selected>{{ $item['criteria_name'] }}</option>
                                             @foreach ($item['sub'] as $val)
-                                            <option value="{{ $val->id }}">{{ $val->id }} {{ $val->description }}</option>
+                                            <option value="{{ $val->id }}">{{ $val->description }}</option>
                                             @endforeach
 
                                         </select>
